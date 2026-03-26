@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VAULT — Premium Content</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C96A;
+      --dark: #0A0A0A; --dark2: #111111; --dark3: #181818;
+      --cream: #F5F0E8; --border: rgba(201,168,76,0.2);
+    }
+    body {
+      background: var(--dark); color: var(--cream);
+      font-family: 'DM Sans', sans-serif; font-weight: 300;
+      min-height: 100vh;
+    }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10,10,10,0.9); backdrop-filter: blur(16px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 900; letter-spacing: 6px; color: var(--gold); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 13px; opacity: 0.6; }
+    .nav-links a:hover { opacity: 1; }
+    .btn-nav {
+      background: var(--gold); color: var(--dark) !important;
+      padding: 9px 22px; border-radius: 2px; opacity: 1 !important;
+      font-size: 12px; letter-spacing: 1px;
+    }
+
+    /* GATED OVERLAY */
+    .gate-overlay {
+      display: none; position: fixed; inset: 0; z-index: 100;
+      background: rgba(10,10,10,0.97); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center; text-align: center;
+      padding: 40px;
+    }
+    .gate-overlay.show { display: flex; flex-direction: column; }
+    .gate-icon { font-size: 48px; margin-bottom: 24px; }
+    .gate-overlay h2 {
+      font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .gate-overlay h2 em { color: var(--gold); font-style: italic; }
+    .gate-overlay p { font-size: 16px; opacity: 0.6; max-width: 480px; margin: 0 auto 36px; line-height: 1.7; }
+    .gate-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn-gold {
+      background: var(--gold); color: var(--dark); padding: 14px 40px;
+      border-radius: 4px; text-decoration: none; font-size: 13px;
+      letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
+      transition: background 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); }
+    .btn-outline {
+      border: 1px solid rgba(245,240,232,0.2); color: var(--cream);
+      padding: 14px 40px; border-radius: 4px; text-decoration: none;
+      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* HERO */
+    .content-hero {
+      padding: 80px 60px 60px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+    }
+    .content-hero h1 {
+      font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 900; line-height: 1.1;
+    }
+    .content-hero h1 em { color: var(--gold); font-style: italic; }
+    .content-hero p { font-size: 16px; opacity: 0.55; margin-top: 12px; }
+    .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 8px 20px; border-radius: 20px;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--cream); font-size: 12px; letter-spacing: 2px;
+      text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08);
+    }
+
+    /* FEATURED */
+    .section { padding: 60px; }
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .section-header h2 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; }
+    .section-header span { font-size: 12px; opacity: 0.4; letter-spacing: 1px; }
+
+    .featured-card {
+      background: var(--dark2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 48px; margin-bottom: 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      position: relative; overflow: hidden; transition: border-color 0.3s; cursor: pointer;
+    }
+    .featured-card:hover { border-color: rgba(201,168,76,0.4); }
+    .featured-card::before {
+      content: 'FEATURED'; position: absolute; top: 24px; right: 24px;
+      font-size: 10px; letter-spacing: 3px; color: var(--gold);
+      border: 1px solid var(--gold); padding: 4px 12px; border-radius: 20px;
+    }
+    .featured-card .tag { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .featured-card h3 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    .featured-card p { font-size: 15px; opacity: 0.6; line-height: 1.8; margin-bottom: 28px; }
+    .featured-card .meta { font-size: 13px; opacity: 0.4; }
+    .featured-visual {
+      background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.03));
+      border: 1px solid var(--border); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .featured-visual span { font-family: 'Playfair Display', serif; font-size: 80px; color: rgba(201,168,76,0.2); }
+
+    /* CONTENT GRID */
+    .articles-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .article-card {
+      background: var(--dark2); border: 1px solid var(--border);
+      border-radius: 6px; padding: 28px;
+      transition: all 0.2s; cursor: pointer;
+      display: block; text-decoration: none; color: var(--cream);
+    }
+    .article-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-4px); }
+    .article-tag {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px;
+    }
+    .article-card h3 { font-size: 18px; font-weight: 500; line-height: 1.4; margin-bottom: 10px; }
+    .article-card p { font-size: 14px; opacity: 0.55; line-height: 1.7; margin-bottom: 20px; }
+    .article-footer { display: flex; justify-content: space-between; font-size: 12px; opacity: 0.4; }
+    .read-time {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,0.1); color: var(--gold);
+      padding: 4px 12px; border-radius: 20px; font-size: 11px; margin-bottom: 16px;
+    }
+
+    /* ARTICLE MODAL */
+    .article-modal {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(10,10,10,0.98); overflow-y: auto; padding: 60px 40px;
+    }
+    .article-modal.show { display: block; }
+    .modal-inner { max-width: 720px; margin: 0 auto; }
+    .modal-close {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; opacity: 0.5; cursor: pointer; margin-bottom: 40px;
+      background: none; border: none; color: var(--cream); letter-spacing: 1px;
+    }
+    .modal-close:hover { opacity: 1; }
+    .modal-tag { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .modal-title {
+      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900;
+      line-height: 1.1; margin-bottom: 20px;
+    }
+    .modal-meta { font-size: 14px; opacity: 0.45; margin-bottom: 48px; display: flex; gap: 24px; }
+    .modal-body { font-size: 17px; line-height: 1.9; opacity: 0.8; }
+    .modal-body p { margin-bottom: 24px; }
+    .modal-body h2 {
+      font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700;
+      margin: 40px 0 20px;
+    }
+    .modal-body blockquote {
+      border-left: 3px solid var(--gold); padding: 4px 24px;
+      font-style: italic; opacity: 0.8; margin: 32px 0;
+      background: rgba(201,168,76,0.05);
+    }
+    .modal-divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .content-hero { padding: 48px 24px 40px; }
+      .content-hero h1 { font-size: 36px; }
+      .section { padding: 40px 24px; }
+      .featured-card { grid-template-columns: 1fr; gap: 24px; }
+      .featured-visual { min-height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ACCESS GATE -->
+<div class="gate-overlay" id="gateOverlay">
+  <div class="gate-icon">🔒</div>
+  <h2>Members <em>Only</em></h2>
+  <p>This content is exclusively available to Vault subscribers. Join thousands of members who are already inside.</p>
+  <div class="gate-btns">
+    <a href="register.html" class="btn-gold">Start Membership →</a>
+    <a href="login.html" class="btn-outline">Sign In</a>
+  </div>
+</div>
+
+<!-- ARTICLE MODAL -->
+<div class="article-modal" id="articleModal">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeArticle()">← Back to Library</button>
+    <div class="modal-tag" id="modalTag"></div>
+    <h1 class="modal-title" id="modalTitle"></h1>
+    <div class="modal-meta">
+      <span id="modalAuthor"></span>
+      <span id="modalDate"></span>
+      <span id="modalRead"></span>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">VAULT</a>
+  <div class="nav-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="dashboard.html" class="btn-nav">My Account</a>
+  </div>
+</nav>
+
+<div class="content-hero">
+  <div>
+    <h1>Premium<br><em>Content</em></h1>
+    <p>500+ expert articles, deep dives, and strategy reports.</p>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filter('all', this)">All</button>
+    <button class="filter-btn" onclick="filter('strategy', this)">Strategy</button>
+    <button class="filter-btn" onclick="filter('operations', this)">Operations</button>
+    <button class="filter-btn" onclick="filter('leadership', this)">Leadership</button>
+    <button class="filter-btn" onclick="filter('finance', this)">Finance</button>
+  </div>
+</div>
+
+<div class="section">
+  <!-- FEATURED -->
+  <div class="featured-card" onclick="openArticle(0)">
+    <div>
+      <div class="tag">Strategy · Deep Dive</div>
+      <h3>The Contrarian's Playbook: How Top Funds Profit From Market Fear</h3>
+      <p>When markets bleed, most investors panic. A disciplined few load up. This is the definitive guide to building the mental models and tactical frameworks of the world's best contrarian investors.</p>
+      <div class="meta">By Marcus Webb · Mar 2026 · 14 min read</div>
+    </div>
+    <div class="featured-visual">
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="section-header">
+    <h2>All Articles</h2>
+    <span id="articleCount">7 articles</span>
+  </div>
+
+  <div class="articles-grid" id="articlesGrid">
+    <!-- Generated by JS -->
+  </div>
+</div>
+
+<script>
+  // Auth check
+  if (!localStorage.getItem('vault_logged_in')) {
+    document.getElementById('gateOverlay').classList.add('show');
+  }
+
+  const articles = [
+    {
+      tag: 'Strategy',
+      title: "The Contrarian's Playbook: How Top Funds Profit From Market Fear",
+      excerpt: 'When markets bleed, most investors panic. A disciplined few load up. This guide explores the mindset and mechanics of world-class contrarian investing.',
+      author: 'Marcus Webb', date: 'March 2026', read: '14 min read',
+      body: `<p>Every bull market eventually ends. Every panic eventually passes. The investors who understand this cycle not as theory but as a lived, embodied reality are the ones who build generational wealth.</p>
+      <h2>The Anatomy of Fear</h2>
+      <p>Market panics follow a recognizable pattern. First comes the triggering event — a central bank decision, a geopolitical shock, a corporate fraud. Then comes the narrative cascade, as media outlets compete to explain why this time is different, why the bottom is not yet in.</p>
+      <blockquote>The time to buy is when there's blood in the streets, even if the blood is your own. — Baron Rothschild</blockquote>
+      <p>Most investors, reading those headlines, feel something they interpret as rational caution. What it actually is, neuroscience confirms, is the amygdala overriding the prefrontal cortex. The same mechanism that made our ancestors flee from predators is now making us sell equities at the worst possible time.</p>
+      <h2>Building the Contrarian Framework</h2>
+      <p>The best contrarians don't rely on willpower. They build systematic frameworks that make the right behavior easier than the wrong behavior. They decide in advance what they'll buy when specific conditions are met. They pre-commit to position sizes. They automate purchases when volatility spikes above certain thresholds.</p>
+      <p>This is not bold individual genius. It's boring, systematic discipline applied when everyone around you is anything but disciplined.</p>
+      <h2>The Four Contrarian Triggers</h2>
+      <p>Through study of historical market panics, four reliable buying triggers emerge: extreme sentiment readings, insider buying at scale, forced selling by institutions (margin calls, fund redemptions), and valuations that price in a catastrophic scenario that hasn't materialized.</p>
+      <p>The key is that none of these indicators require you to call the exact bottom. They require only that you act when conditions are favorable — and that you have the capital and courage to do so.</p>`
+    },
+    {
+      tag: 'Operations',
+      title: 'Building Leverage: Systems That Scale Without You',
+      excerpt: 'How elite operators build businesses that grow independently of their personal time and attention.',
+      author: 'Sophie Lin', date: 'March 2026', read: '9 min read',
+      body: `<p>The most dangerous trap for ambitious founders and operators is becoming the bottleneck of their own creation. You build something that grows, and then you discover that growth requires more of you — not less.</p>
+      <h2>The Leverage Hierarchy</h2>
+      <p>Naval Ravikant's framework remains the clearest: labor, capital, code, and media are the four types of leverage. The first two require permission — someone must work for you, someone must lend you money. The latter two are permissionless. A piece of software or content can generate returns while you sleep.</p>
+      <blockquote>Give me a lever long enough and a fulcrum on which to place it, and I shall move the world. — Archimedes</blockquote>
+      <p>Smart operators build leverage in this order: start by creating repeatable processes, then hire to those processes, then automate what the hires do, then distribute the output at zero marginal cost.</p>
+      <h2>The Four Systems Every Business Needs</h2>
+      <p>Acquisition systems bring in new customers without your direct involvement. Delivery systems fulfill the promise to customers without requiring your attention on each case. Feedback systems tell you what's working and what isn't in real time. Finance systems ensure the money you're making is being captured, managed, and deployed effectively.</p>
+      <p>When all four systems are in place and connected, you have a business. Before that, you have a job with extra steps.</p>`
+    },
+    {
+      tag: 'Leadership',
+      title: 'The Silence Principle: Why the Best Leaders Say Less',
+      excerpt: 'Counterintuitive lessons on influence, authority, and strategic communication from the world\'s most effective leaders.',
+      author: 'James Okafor', date: 'February 2026', read: '7 min read',
+      body: `<p>We live in a culture that rewards the appearance of certainty and the volume of communication. Leaders are expected to have answers, to communicate constantly, to fill every silence with direction.</p>
+      <p>The data does not support this model. Study the most effective executives and military leaders, and a different pattern emerges: they speak less, but what they say lands harder.</p>
+      <h2>The Power of the Pause</h2>
+      <p>In negotiation, in performance reviews, in strategy sessions — the leader who speaks last, who allows silence to develop after others have spoken, holds more power. Silence communicates confidence. It signals that you are not anxious, not scrambling for words, not trying to fill space.</p>
+      <blockquote>Speak only if it improves upon the silence. — Mahatma Gandhi</blockquote>
+      <h2>Active Listening as Power</h2>
+      <p>When you speak less, you hear more. You learn what your team actually thinks rather than what they think you want to hear. You catch the problems that are developing before they become crises. You understand the political dynamics of your organization.</p>
+      <p>The leader who listens well knows everything. The leader who talks constantly knows only what they already knew.</p>`
+    },
+    {
+      tag: 'Finance',
+      title: 'The Cash Flow Matrix: How Sophisticated Operators Manage Money',
+      excerpt: 'A framework for understanding and optimizing every cash flow in your business, from the perspective of elite operators.',
+      author: 'Rachel Torres', date: 'February 2026', read: '11 min read',
+      body: `<p>Most founders understand revenue. Fewer understand cash flow. A small fraction understand the sophisticated management of cash timing, float, and capital allocation that separates good businesses from great ones.</p>
+      <h2>The Four Cash Flow Levers</h2>
+      <p>Revenue timing, payment terms, inventory management, and capital efficiency are the four levers that determine whether a business is cash flow positive or negative regardless of its profitability on paper.</p>
+      <p>A business can be profitable and still run out of cash. Understanding why requires a deep look at the timing mismatch between when money flows in and when it flows out.</p>
+      <blockquote>Revenue is vanity, profit is sanity, but cash is king.</blockquote>
+      <p>The most sophisticated operators focus not just on growing revenue but on improving the cash conversion cycle — the time between when they spend money to create a product and when they collect money from selling it.</p>`
+    },
+    {
+      tag: 'Strategy',
+      title: 'Second-Order Thinking: The Mental Model Separating Top Performers',
+      excerpt: 'How the best decision-makers think beyond immediate consequences to understand the full cascade of effects.',
+      author: 'David Kim', date: 'January 2026', read: '8 min read',
+      body: `<p>First-order thinking asks: what happens if I do this? Second-order thinking asks: and then what? And then what after that?</p>
+      <p>Most people stop at the first question. The outcomes we regret most in life and business come from failures of second-order thinking — from optimizing for the immediate at the expense of the long-term.</p>
+      <h2>The Chessboard Mindset</h2>
+      <p>Chess grandmasters don't just see the board as it is; they see the board as it could be across dozens of moves. They develop what practitioners call positional sense — an intuitive feel for which arrangements of pieces create long-term advantage.</p>
+      <blockquote>The measure of intelligence is the ability to change. — Albert Einstein</blockquote>
+      <p>You can develop the same skill in business and life. The practice is simple: for every significant decision, force yourself to write out the second and third-order consequences. What does this decision make more likely? What does it make harder?</p>`
+    },
+    {
+      tag: 'Operations',
+      title: 'The Hiring Framework: Building Teams That Outperform',
+      excerpt: 'A systematic approach to identifying, attracting, and retaining exceptional talent at every stage of growth.',
+      author: 'Sophie Lin', date: 'January 2026', read: '10 min read',
+      body: `<p>Hiring is the highest-leverage activity in any organization. A single exceptional hire can add more value than dozens of average ones. A single bad hire at a senior level can set an organization back years.</p>
+      <h2>The Talent Triangle</h2>
+      <p>Every hire should be evaluated across three dimensions: capability (can they do the job?), character (will they do it well within your culture?), and coachability (can they grow?). Optimizing for any single dimension produces predictable failures.</p>
+      <p>High-capability, low-character hires are brilliant jerks who corrode team dynamics. High-capability, low-coachability hires plateau. High-character, low-capability hires are likable underperformers.</p>
+      <blockquote>Hire character. Train skill. — Peter Schutz</blockquote>
+      <p>The best hires score at least 7/10 on all three dimensions. Exceptional hires score 9+ on at least two. The framework sounds simple. The discipline to apply it when you're desperate to fill a role is what separates great builders from those perpetually stuck in hiring-and-firing cycles.</p>`
+    },
+    {
+      tag: 'Finance',
+      title: 'Compounding Knowledge: The Investment Strategy Nobody Talks About',
+      excerpt: 'The most reliable path to long-term wealth isn\'t stocks, real estate, or crypto — it\'s the systematic accumulation of expertise.',
+      author: 'Marcus Webb', date: 'December 2025', read: '6 min read',
+      body: `<p>There is a form of compounding more powerful than financial compounding, more durable than market returns, and completely immune to volatility: the compounding of knowledge and skill.</p>
+      <h2>The Expertise Flywheel</h2>
+      <p>Each piece of knowledge creates a foundation for the next. Each skill makes the acquisition of adjacent skills faster. The person who has been systematically developing expertise for a decade doesn't just know more than the person starting out — they learn ten times faster.</p>
+      <p>This is why the returns on intellectual investment are back-loaded. The first years feel slow. The later years feel exponential.</p>
+      <blockquote>An investment in knowledge pays the best interest. — Benjamin Franklin</blockquote>
+      <p>The practical implication: prioritize learning that compounds. Prefer depth over breadth in your early years. Choose roles that accelerate skill development over roles that pay more but teach less. Read slowly and carefully rather than broadly and shallowly. Understand that the boring fundamentals compound into genuine mastery.</p>`
+    }
+  ];
+
+  let activeFilter = 'all';
+
+  function renderArticles(filter = 'all') {
+    const grid = document.getElementById('articlesGrid');
+    const filtered = articles.slice(1).filter(a => filter === 'all' || a.tag.toLowerCase() === filter);
+    document.getElementById('articleCount').textContent = `${filtered.length} article${filtered.length !== 1 ? 's' : ''}`;
+    grid.innerHTML = filtered.map((a, i) => `
+      <div class="article-card" onclick="openArticle(${articles.indexOf(a)})">
+        <div class="article-tag">${a.tag}</div>
+        <div class="read-time">⏱ ${a.read}</div>
+        <h3>${a.title}</h3>
+        <p>${a.excerpt}</p>
+        <div class="article-footer">
+          <span>${a.author}</span>
+          <span>${a.date}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function filter(cat, el) {
+    activeFilter = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    renderArticles(cat);
+  }
+
+  function openArticle(index) {
+    if (!localStorage.getItem('vault_logged_in')) {
+      document.getElementById('gateOverlay').classList.add('show');
+      return;
+    }
+    const a = articles[index];
+    document.getElementById('modalTag').textContent = a.tag;
+    document.getElementById('modalTitle').textContent = a.title;
+    document.getElementById('modalAuthor').textContent = a.author;
+    document.getElementById('modalDate').textContent = a.date;
+    document.getElementById('modalRead').textContent = a.read;
+    document.getElementById('modalBody').innerHTML = a.body;
+    document.getElementById('articleModal').classList.add('show');
+    window.scrollTo(0,0);
+  }
+
+  function closeArticle() {
+    document.getElementById('articleModal').classList.remove('show');
+  }
+
+  renderArticles();
+</script>
+</body>
+</html>

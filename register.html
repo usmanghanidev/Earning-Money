@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VAULT — Create Account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C96A;
+      --dark: #0A0A0A; --dark2: #111111; --dark3: #1A1A1A;
+      --cream: #F5F0E8; --muted: #888; --border: rgba(201,168,76,0.2);
+      --red: #e05a5a;
+    }
+    body {
+      background: var(--dark);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 900; letter-spacing: 6px;
+      color: var(--gold); text-decoration: none;
+    }
+    .nav-link { color: var(--cream); text-decoration: none; font-size: 13px; opacity: 0.6; }
+    .nav-link:hover { opacity: 1; }
+
+    .page {
+      flex: 1; display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 65px);
+    }
+
+    /* LEFT PANEL */
+    .panel-left {
+      background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, transparent 60%);
+      border-right: 1px solid var(--border);
+      padding: 80px 60px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .panel-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px; font-weight: 900; line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .panel-left h2 em { font-style: italic; color: var(--gold); }
+    .panel-left p { font-size: 16px; opacity: 0.6; line-height: 1.7; margin-bottom: 48px; }
+    .benefits { list-style: none; }
+    .benefits li {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 15px; opacity: 0.8;
+    }
+    .benefit-icon {
+      width: 32px; height: 32px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: var(--gold); flex-shrink: 0;
+    }
+    .plan-selector {
+      display: flex; gap: 12px; margin-bottom: 40px;
+    }
+    .plan-chip {
+      flex: 1; padding: 12px; border: 1px solid var(--border);
+      background: transparent; color: var(--cream);
+      border-radius: 4px; cursor: pointer; font-size: 13px;
+      letter-spacing: 1px; text-align: center;
+      transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+    }
+    .plan-chip.active {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.1);
+      color: var(--gold);
+    }
+    .plan-chip span { display: block; font-size: 20px; font-family: 'Playfair Display', serif; font-weight: 700; color: var(--gold); margin-bottom: 2px; }
+
+    /* RIGHT PANEL */
+    .panel-right {
+      padding: 80px 60px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .form-container { width: 100%; max-width: 420px; }
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .form-sub { font-size: 14px; opacity: 0.5; margin-bottom: 40px; }
+    .form-sub a { color: var(--gold); text-decoration: none; }
+
+    .form-group { margin-bottom: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label {
+      display: block; font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; opacity: 0.6; margin-bottom: 8px;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--cream);
+      padding: 14px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; border-radius: 4px;
+      outline: none; transition: border-color 0.2s;
+      appearance: none;
+    }
+    input:focus { border-color: var(--gold); }
+    input.error { border-color: var(--red); }
+    .field-error { font-size: 12px; color: var(--red); margin-top: 6px; display: none; }
+
+    .divider {
+      display: flex; align-items: center; gap: 16px;
+      margin: 28px 0; opacity: 0.3;
+    }
+    .divider hr { flex: 1; border: none; border-top: 1px solid var(--border); }
+    .divider span { font-size: 12px; white-space: nowrap; }
+
+    .summary-box {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 20px;
+      margin-bottom: 24px;
+    }
+    .summary-row {
+      display: flex; justify-content: space-between;
+      font-size: 14px; padding: 6px 0;
+    }
+    .summary-row.total {
+      border-top: 1px solid var(--border);
+      margin-top: 8px; padding-top: 14px;
+      font-weight: 500; font-size: 16px;
+    }
+    .summary-row.total span:last-child { color: var(--gold); }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--dark);
+      border: none; cursor: pointer;
+      padding: 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      border-radius: 4px; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .btn-submit:hover { background: var(--gold-light); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(0,0,0,0.3);
+      border-top-color: var(--dark);
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .secure-note {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; opacity: 0.4; justify-content: center;
+      margin-top: 16px;
+    }
+    .success-msg {
+      background: rgba(80,200,120,0.1);
+      border: 1px solid rgba(80,200,120,0.3);
+      border-radius: 4px; padding: 16px;
+      text-align: center; font-size: 14px;
+      color: #50c878; display: none; margin-bottom: 20px;
+    }
+    .error-msg {
+      background: rgba(224,90,90,0.1);
+      border: 1px solid rgba(224,90,90,0.3);
+      border-radius: 4px; padding: 16px;
+      text-align: center; font-size: 14px;
+      color: var(--red); display: none; margin-bottom: 20px;
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .page { grid-template-columns: 1fr; }
+      .panel-left { display: none; }
+      .panel-right { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">VAULT</a>
+  <a class="nav-link" href="login.html">Already a member? Sign in →</a>
+</nav>
+
+<div class="page">
+  <!-- LEFT -->
+  <div class="panel-left">
+    <h2>Join the<br><em>Vault</em> Today</h2>
+    <p>Get instant access to premium content, expert sessions, and a thriving community of ambitious professionals.</p>
+    <ul class="benefits">
+      <li><div class="benefit-icon">✦</div> 500+ Premium articles & deep dives</li>
+      <li><div class="benefit-icon">✦</div> Monthly live expert Q&A sessions</li>
+      <li><div class="benefit-icon">✦</div> Private member community</li>
+      <li><div class="benefit-icon">✦</div> Weekly content drops</li>
+      <li><div class="benefit-icon">✦</div> Cancel anytime, no hassle</li>
+    </ul>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="panel-right">
+    <div class="form-container">
+      <h2 class="form-title">Create Account</h2>
+      <p class="form-sub">Already have an account? <a href="login.html">Sign in</a></p>
+
+      <!-- Plan Selection -->
+      <div class="plan-selector">
+        <button class="plan-chip" data-plan="monthly" onclick="selectPlan('monthly')">
+          <span>$29</span>Monthly
+        </button>
+        <button class="plan-chip active" data-plan="annual" onclick="selectPlan('annual')">
+          <span>$199</span>Annual — Save 43%
+        </button>
+      </div>
+
+      <div class="success-msg" id="successMsg">✓ Account created! Redirecting to payment...</div>
+      <div class="error-msg" id="errorMsg"></div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="firstName" placeholder="Jane" />
+          <div class="field-error" id="firstNameErr">Required</div>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="lastName" placeholder="Doe" />
+          <div class="field-error" id="lastNameErr">Required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="jane@example.com" />
+        <div class="field-error" id="emailErr">Enter a valid email</div>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Min. 8 characters" />
+        <div class="field-error" id="passwordErr">Min. 8 characters required</div>
+      </div>
+
+      <div class="divider"><hr/><span>Order Summary</span><hr/></div>
+
+      <div class="summary-box" id="summaryBox">
+        <div class="summary-row"><span>Vault Annual Plan</span><span>$199</span></div>
+        <div class="summary-row"><span>Billed</span><span>Once per year</span></div>
+        <div class="summary-row total"><span>Total Today</span><span id="totalAmount">$199</span></div>
+      </div>
+
+      <button class="btn-submit" id="submitBtn" onclick="handleRegister()">
+        <div class="spinner" id="spinner"></div>
+        <span id="btnText">Continue to Payment →</span>
+      </button>
+      <div class="secure-note">🔒 Secured by Stripe · 256-bit SSL encryption</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let selectedPlan = 'annual';
+
+  // Read URL param
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('plan') === 'monthly') selectPlan('monthly');
+
+  function selectPlan(plan) {
+    selectedPlan = plan;
+    document.querySelectorAll('.plan-chip').forEach(c => c.classList.remove('active'));
+    document.querySelector(`[data-plan="${plan}"]`).classList.add('active');
+
+    const isAnnual = plan === 'annual';
+    document.querySelector('.summary-box').innerHTML = `
+      <div class="summary-row"><span>Vault ${isAnnual ? 'Annual' : 'Monthly'} Plan</span><span>${isAnnual ? '$199' : '$29'}</span></div>
+      <div class="summary-row"><span>Billed</span><span>${isAnnual ? 'Once per year' : 'Every month'}</span></div>
+      <div class="summary-row total"><span>Total Today</span><span id="totalAmount">${isAnnual ? '$199' : '$29'}</span></div>
+    `;
+  }
+
+  function validate() {
+    let valid = true;
+    const fields = [
+      { id: 'firstName', errId: 'firstNameErr', check: v => v.length > 0 },
+      { id: 'lastName', errId: 'lastNameErr', check: v => v.length > 0 },
+      { id: 'email', errId: 'emailErr', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+      { id: 'password', errId: 'passwordErr', check: v => v.length >= 8 },
+    ];
+    fields.forEach(({ id, errId, check }) => {
+      const el = document.getElementById(id);
+      const errEl = document.getElementById(errId);
+      const ok = check(el.value.trim());
+      el.classList.toggle('error', !ok);
+      errEl.style.display = ok ? 'none' : 'block';
+      if (!ok) valid = false;
+    });
+    return valid;
+  }
+
+  function handleRegister() {
+    if (!validate()) return;
+
+    const btn = document.getElementById('submitBtn');
+    const spinner = document.getElementById('spinner');
+    const btnText = document.getElementById('btnText');
+
+    btn.disabled = true;
+    spinner.style.display = 'block';
+    btnText.textContent = 'Creating account...';
+
+    // Simulate account creation
+    setTimeout(() => {
+      const user = {
+        firstName: document.getElementById('firstName').value.trim(),
+        lastName: document.getElementById('lastName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        plan: selectedPlan,
+        joined: new Date().toISOString()
+      };
+      localStorage.setItem('vault_user', JSON.stringify(user));
+      localStorage.setItem('vault_pending_payment', 'true');
+
+      spinner.style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+      btnText.textContent = 'Redirecting...';
+
+      setTimeout(() => {
+        window.location.href = 'payment.html';
+      }, 1500);
+    }, 1800);
+  }
+</script>
+</body>
+</html>
