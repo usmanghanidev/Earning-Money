@@ -225,7 +225,7 @@
   <div class="sidebar-user">
     <div class="user-avatar" id="avatarInitials">JD</div>
     <div class="user-name" id="userName">Jane Doe</div>
-    <div class="user-plan" id="userPlan">Annual Member</div>
+    <div class="user-plan" id="userPlan">3 Months Member</div>
   </div>
 
   <div class="nav-section">
@@ -331,7 +331,7 @@
       </div>
       <div class="billing-row">
         <span>Amount</span>
-        <span id="billAmount">$199 / year</span>
+        <span id="billAmount">549 / year</span>
       </div>
       <div class="billing-row">
         <span>Next Renewal</span>
@@ -339,7 +339,7 @@
       </div>
       <div class="billing-row">
         <span>Payment Method</span>
-        <span>•••• •••• •••• 4242</span>
+        <span>•••• •••• •••• 540</span>
       </div>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
@@ -357,11 +357,11 @@
     <div class="billing-card">
       <div class="billing-row">
         <span>Full Name</span>
-        <span id="settingName">Jane Doe</span>
+        <span id="settingName">Usman ghani</span>
       </div>
       <div class="billing-row">
         <span>Email</span>
-        <span id="settingEmail">jane@example.com</span>
+        <span id="settingEmail">usmanaptech95@gmail.com</span>
       </div>
       <div class="billing-row">
         <span>Member Since</span>
@@ -396,25 +396,25 @@
   // Plan info
   const isAnnual = (user.subscriptionPlan || user.plan) !== 'monthly';
   document.getElementById('userPlan').textContent = isAnnual ? 'Annual Member' : 'Monthly Member';
-  document.getElementById('statusPlanName').textContent = isAnnual ? 'Vault Annual Plan' : 'Vault Monthly Plan';
+  document.getElementById('statusPlanName').textContent = isAnnual ? 'Vault 3 Months Plan' : 'Vault Monthly Plan';
   document.getElementById('statPlan').textContent = isAnnual ? 'Annual' : 'Monthly';
   document.getElementById('billPlanName').textContent = isAnnual ? 'Vault Annual' : 'Vault Monthly';
-  document.getElementById('billAmount').textContent = isAnnual ? '$199 / year' : '$29 / month';
+  document.getElementById('billAmount').textContent = isAnnual ? '549 / 3 Months' : '299 / month';
 
   // Dates
   if (user.subscriptionStart) {
     const start = new Date(user.subscriptionStart);
-    const next = user.nextBilling ? new Date(user.nextBilling) : new Date(start.getTime() + (isAnnual ? 365 : 30) * 86400000);
+    const next = user.nextBilling ? new Date(user.nextBilling) : new Date(start.getTime() + (isAnnual ? 90 : 30) * 86400000);
     const today = new Date();
     const daysLeft = Math.max(0, Math.round((next - today) / 86400000));
-    const totalDays = isAnnual ? 365 : 30;
+    const totalDays = isAnnual ? 90 : 30;
     const memberDays = Math.round((today - start) / 86400000);
     const progress = Math.min(100, Math.round((memberDays / totalDays) * 100));
 
-    document.getElementById('memberSince').textContent = start.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-    document.getElementById('renewDate').textContent = next.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    document.getElementById('billRenew').textContent = next.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    document.getElementById('settingJoined').textContent = start.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    document.getElementById('memberSince').textContent = start.toLocaleDateString('en-US', { month: 'long', 3 Months: 'numeric' });
+    document.getElementById('renewDate').textContent = next.toLocaleDateString('en-US', { month: 'long', day: 'numeric', 3 Months: 'numeric' });
+    document.getElementById('billRenew').textContent = next.toLocaleDateString('en-US', { month: 'long', day: 'numeric', 3 Months: 'numeric' });
+    document.getElementById('settingJoined').textContent = start.toLocaleDateString('en-US', { month: 'long', day: 'numeric', 3 Months: 'numeric' });
     document.getElementById('daysLeft').textContent = daysLeft;
     document.getElementById('memberDays').textContent = memberDays;
     document.getElementById('progressFill').style.width = `${progress}%`;

@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VAULT — Premium Knowledge Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --gold: #C9A84C;
@@ -17,10 +26,12 @@
       --dark3: #1A1A1A;
       --cream: #F5F0E8;
       --muted: #888;
-      --border: rgba(201,168,76,0.2);
+      --border: rgba(201, 168, 76, 0.2);
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: var(--dark);
@@ -32,27 +43,49 @@
 
     /* NAV */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 20px 60px;
-      background: rgba(10,10,10,0.85);
+      background: rgba(10, 10, 10, 0.85);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
+
     .nav-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 24px; font-weight: 900;
+      font-size: 24px;
+      font-weight: 900;
       letter-spacing: 6px;
       color: var(--gold);
       text-decoration: none;
     }
-    .nav-links { display: flex; gap: 36px; align-items: center; }
-    .nav-links a {
-      color: var(--cream); text-decoration: none;
-      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
-      opacity: 0.7; transition: opacity 0.2s;
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
     }
-    .nav-links a:hover { opacity: 1; }
+
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
     .btn-nav {
       background: var(--gold);
       color: var(--dark) !important;
@@ -62,443 +95,745 @@
       font-weight: 500;
       transition: background 0.2s !important;
     }
-    .btn-nav:hover { background: var(--gold-light) !important; }
+
+    .btn-nav:hover {
+      background: var(--gold-light) !important;
+    }
 
     /* HERO */
     .hero {
       min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
       padding: 120px 60px 80px;
       overflow: hidden;
     }
+
     .hero-bg {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
     }
+
     .hero-grid {
-      position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(201, 168, 76, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 168, 76, 0.04) 1px, transparent 1px);
       background-size: 60px 60px;
     }
-    .hero-content { position: relative; text-align: center; max-width: 900px; }
-    .hero-eyebrow {
-      font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 28px;
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 900px;
     }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+
     .hero-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(56px, 9vw, 110px);
-      font-weight: 900; line-height: 0.92;
+      font-weight: 900;
+      line-height: 0.92;
       margin-bottom: 32px;
     }
-    .hero-title em { font-style: italic; color: var(--gold); }
-    .hero-sub {
-      font-size: 18px; line-height: 1.7;
-      opacity: 0.65; max-width: 520px; margin: 0 auto 52px;
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
     }
-    .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .hero-sub {
+      font-size: 18px;
+      line-height: 1.7;
+      opacity: 0.65;
+      max-width: 520px;
+      margin: 0 auto 52px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
     .btn-primary {
       background: var(--gold);
       color: var(--dark);
       padding: 16px 44px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 13px; font-weight: 500;
-      letter-spacing: 2px; text-transform: uppercase;
-      text-decoration: none; border-radius: 2px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
       transition: background 0.2s, transform 0.2s;
       display: inline-block;
     }
-    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
     .btn-secondary {
-      border: 1px solid rgba(245,240,232,0.3);
+      border: 1px solid rgba(245, 240, 232, 0.3);
       color: var(--cream);
       padding: 16px 44px;
-      font-size: 13px; font-weight: 400;
-      letter-spacing: 2px; text-transform: uppercase;
-      text-decoration: none; border-radius: 2px;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
       transition: border-color 0.2s;
       display: inline-block;
     }
-    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
 
     /* STATS */
     .stats {
-      display: flex; justify-content: center;
-      gap: 80px; padding: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      padding: 60px;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       background: var(--dark2);
       flex-wrap: wrap;
     }
-    .stat-item { text-align: center; }
+
+    .stat-item {
+      text-align: center;
+    }
+
     .stat-num {
       font-family: 'Playfair Display', serif;
-      font-size: 48px; font-weight: 700;
-      color: var(--gold); display: block;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--gold);
+      display: block;
     }
-    .stat-label { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; }
+
+    .stat-label {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
 
     /* FEATURES */
-    .features { padding: 120px 60px; }
-    .section-header { text-align: center; margin-bottom: 80px; }
-    .section-tag {
-      font-size: 10px; letter-spacing: 5px; text-transform: uppercase;
-      color: var(--gold); display: block; margin-bottom: 20px;
+    .features {
+      padding: 120px 60px;
     }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-tag {
+      font-size: 10px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 20px;
+    }
+
     .section-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(36px, 5vw, 60px);
-      font-weight: 700; line-height: 1.1;
+      font-weight: 700;
+      line-height: 1.1;
     }
+
     .features-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2px; max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
+
     .feature-card {
       background: var(--dark2);
       padding: 48px 40px;
       border: 1px solid var(--border);
       transition: border-color 0.3s, background 0.3s;
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
+
     .feature-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: var(--gold); transform: scaleX(0); transform-origin: left;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
       transition: transform 0.4s;
     }
-    .feature-card:hover::before { transform: scaleX(1); }
-    .feature-card:hover { background: var(--dark3); border-color: rgba(201,168,76,0.4); }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-card:hover {
+      background: var(--dark3);
+      border-color: rgba(201, 168, 76, 0.4);
+    }
+
     .feature-num {
       font-family: 'Playfair Display', serif;
-      font-size: 64px; font-weight: 900;
-      color: rgba(201,168,76,0.1); line-height: 1;
-      margin-bottom: 16px; display: block;
+      font-size: 64px;
+      font-weight: 900;
+      color: rgba(201, 168, 76, 0.1);
+      line-height: 1;
+      margin-bottom: 16px;
+      display: block;
     }
+
     .feature-card h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 22px; margin-bottom: 14px;
+      font-size: 22px;
+      margin-bottom: 14px;
     }
-    .feature-card p { font-size: 15px; opacity: 0.6; line-height: 1.7; }
+
+    .feature-card p {
+      font-size: 15px;
+      opacity: 0.6;
+      line-height: 1.7;
+    }
 
     /* PRICING */
-    .pricing { padding: 120px 60px; background: var(--dark2); }
-    .pricing-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px; max-width: 900px; margin: 0 auto;
+    .pricing {
+      padding: 120px 60px;
+      background: var(--dark2);
     }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
     .pricing-card {
       border: 1px solid var(--border);
       padding: 48px 40px;
       border-radius: 4px;
-      position: relative; transition: transform 0.3s;
+      position: relative;
+      transition: transform 0.3s;
     }
-    .pricing-card:hover { transform: translateY(-8px); }
+
+    .pricing-card:hover {
+      transform: translateY(-8px);
+    }
+
     .pricing-card.featured {
       border-color: var(--gold);
-      background: linear-gradient(135deg, rgba(201,168,76,0.06), transparent);
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.06), transparent);
     }
+
     .pricing-badge {
-      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
-      background: var(--gold); color: var(--dark);
-      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-      padding: 4px 18px; border-radius: 20px; font-weight: 500;
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 4px 18px;
+      border-radius: 20px;
+      font-weight: 500;
     }
+
     .plan-name {
-      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-      opacity: 0.6; margin-bottom: 20px;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 20px;
     }
+
     .plan-price {
       font-family: 'Playfair Display', serif;
-      font-size: 56px; font-weight: 900; color: var(--gold);
+      font-size: 56px;
+      font-weight: 900;
+      color: var(--gold);
       line-height: 1;
     }
-    .plan-price sup { font-size: 22px; vertical-align: top; margin-top: 10px; display: inline-block; }
-    .plan-price span { font-size: 16px; opacity: 0.5; font-family: 'DM Sans', sans-serif; }
-    .plan-desc { font-size: 14px; opacity: 0.55; margin: 16px 0 32px; line-height: 1.6; }
-    .plan-features { list-style: none; margin-bottom: 40px; }
+
+    .plan-price sup {
+      font-size: 22px;
+      vertical-align: top;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    .plan-price span {
+      font-size: 16px;
+      opacity: 0.5;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .plan-desc {
+      font-size: 14px;
+      opacity: 0.55;
+      margin: 16px 0 32px;
+      line-height: 1.6;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-bottom: 40px;
+    }
+
     .plan-features li {
-      font-size: 14px; padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      display: flex; align-items: center; gap: 10px;
+      font-size: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .plan-features li::before { content: '✦'; color: var(--gold); font-size: 8px; }
+
+    .plan-features li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 8px;
+    }
+
     .btn-plan {
-      display: block; text-align: center;
-      padding: 14px; border-radius: 2px;
-      text-decoration: none; font-size: 12px;
-      letter-spacing: 2px; text-transform: uppercase;
-      font-weight: 500; transition: all 0.2s;
+      display: block;
+      text-align: center;
+      padding: 14px;
+      border-radius: 2px;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: all 0.2s;
     }
+
     .btn-plan-outline {
-      border: 1px solid rgba(245,240,232,0.2);
+      border: 1px solid rgba(245, 240, 232, 0.2);
       color: var(--cream);
     }
-    .btn-plan-outline:hover { border-color: var(--gold); color: var(--gold); }
-    .btn-plan-gold { background: var(--gold); color: var(--dark); }
-    .btn-plan-gold:hover { background: var(--gold-light); }
+
+    .btn-plan-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-plan-gold {
+      background: var(--gold);
+      color: var(--dark);
+    }
+
+    .btn-plan-gold:hover {
+      background: var(--gold-light);
+    }
 
     /* TESTIMONIALS */
-    .testimonials { padding: 120px 60px; }
-    .testi-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px; max-width: 1000px; margin: 0 auto;
+    .testimonials {
+      padding: 120px 60px;
     }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
     .testi-card {
       background: var(--dark2);
       border: 1px solid var(--border);
-      padding: 40px; border-radius: 4px;
+      padding: 40px;
+      border-radius: 4px;
     }
+
     .testi-quote {
       font-family: 'Playfair Display', serif;
-      font-size: 48px; color: var(--gold); line-height: 0.5;
-      margin-bottom: 20px; display: block;
+      font-size: 48px;
+      color: var(--gold);
+      line-height: 0.5;
+      margin-bottom: 20px;
+      display: block;
     }
-    .testi-text { font-size: 15px; line-height: 1.8; opacity: 0.7; margin-bottom: 28px; }
-    .testi-author { display: flex; align-items: center; gap: 14px; }
+
+    .testi-text {
+      font-size: 15px;
+      line-height: 1.8;
+      opacity: 0.7;
+      margin-bottom: 28px;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
     .testi-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       background: linear-gradient(135deg, var(--gold), #8B6914);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif; font-weight: 700; color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--dark);
     }
-    .testi-name { font-weight: 500; font-size: 14px; }
-    .testi-role { font-size: 12px; opacity: 0.5; }
+
+    .testi-name {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .testi-role {
+      font-size: 12px;
+      opacity: 0.5;
+    }
 
     /* CTA SECTION */
     .cta-section {
       padding: 120px 60px;
-      background: linear-gradient(135deg, rgba(201,168,76,0.08), transparent);
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.08), transparent);
       border-top: 1px solid var(--border);
       text-align: center;
     }
+
     .cta-section h2 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(40px, 6vw, 72px);
-      font-weight: 900; line-height: 1.1;
+      font-weight: 900;
+      line-height: 1.1;
       margin-bottom: 24px;
     }
-    .cta-section p { font-size: 17px; opacity: 0.6; margin-bottom: 48px; }
+
+    .cta-section p {
+      font-size: 17px;
+      opacity: 0.6;
+      margin-bottom: 48px;
+    }
 
     /* FOOTER */
     footer {
       padding: 48px 60px;
       border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
     }
+
     .footer-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 20px; font-weight: 900; letter-spacing: 6px; color: var(--gold);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 6px;
+      color: var(--gold);
     }
-    footer p { font-size: 13px; opacity: 0.4; }
-    .footer-links { display: flex; gap: 28px; }
-    .footer-links a { font-size: 12px; opacity: 0.4; text-decoration: none; color: var(--cream); }
-    .footer-links a:hover { opacity: 0.8; }
+
+    footer p {
+      font-size: 13px;
+      opacity: 0.4;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      opacity: 0.4;
+      text-decoration: none;
+      color: var(--cream);
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
 
     /* ANIMATIONS */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    .hero-eyebrow { animation: fadeUp 0.6s ease 0.1s both; }
-    .hero-title { animation: fadeUp 0.6s ease 0.2s both; }
-    .hero-sub { animation: fadeUp 0.6s ease 0.3s both; }
-    .hero-cta { animation: fadeUp 0.6s ease 0.4s both; }
+
+    .hero-eyebrow {
+      animation: fadeUp 0.6s ease 0.1s both;
+    }
+
+    .hero-title {
+      animation: fadeUp 0.6s ease 0.2s both;
+    }
+
+    .hero-sub {
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+
+    .hero-cta {
+      animation: fadeUp 0.6s ease 0.4s both;
+    }
 
     @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
-      .hero { padding: 100px 24px 60px; }
-      .stats { gap: 40px; padding: 40px 24px; }
-      .features, .pricing, .testimonials, .cta-section { padding: 80px 24px; }
-      footer { padding: 40px 24px; flex-direction: column; text-align: center; }
+      nav {
+        padding: 16px 24px;
+      }
+
+      .hero {
+        padding: 100px 24px 60px;
+      }
+
+      .stats {
+        gap: 40px;
+        padding: 40px 24px;
+      }
+
+      .features,
+      .pricing,
+      .testimonials,
+      .cta-section {
+        padding: 80px 24px;
+      }
+
+      footer {
+        padding: 40px 24px;
+        flex-direction: column;
+        text-align: center;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<nav>
-  <a class="nav-logo" href="index.html">VAULT</a>
-  <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="login.html">Login</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#dashboard">dashboard</a>
-    <a class="btn-nav" href="register.html">Get Access</a>
-  </div>
-</nav>
+  <nav>
+    <a class="nav-logo" href="index.html">VAULT</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="login.html">Login</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#dashboard">dashboard</a>
+      <a class="btn-nav" href="register.html">Get Access</a>
+    </div>
+  </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">✦ The Premium Knowledge Platform ✦</p>
-    <h1 class="hero-title">Unlock <em>Elite</em><br>Knowledge</h1>
-    <p class="hero-sub">Curated insights, expert strategies, and exclusive resources for those who demand more than ordinary.</p>
-    <div class="hero-cta">
-      <a href="register.html" class="btn-primary">Start Today</a>
-      <a href="#pricing" class="btn-secondary">View Plans</a>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">✦ The Premium Knowledge Platform ✦</p>
+      <h1 class="hero-title">Unlock <em>Elite</em><br>Knowledge</h1>
+      <p class="hero-sub">Curated insights, expert strategies, and exclusive resources for those who demand more than
+        ordinary.</p>
+      <div class="hero-cta">
+        <a href="register.html" class="btn-primary">Start Today</a>
+        <a href="#pricing" class="btn-secondary">View Plans</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat-item">
-    <span class="stat-num">12K+</span>
-    <span class="stat-label">Active Members</span>
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-item">
+      <span class="stat-num">12K+</span>
+      <span class="stat-label">Active Members</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">Premium Articles</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">98%</span>
+      <span class="stat-label">Satisfaction Rate</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">24/7</span>
+      <span class="stat-label">Expert Access</span>
+    </div>
   </div>
-  <div class="stat-item">
-    <span class="stat-num">500+</span>
-    <span class="stat-label">Premium Articles</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">98%</span>
-    <span class="stat-label">Satisfaction Rate</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">24/7</span>
-    <span class="stat-label">Expert Access</span>
-  </div>
-</div>
 
-<!-- FEATURES -->
-<section class="features" id="features">
-  <div class="section-header">
-    <span class="section-tag">Why Vault</span>
-    <h2 class="section-title">Everything You Need<br>to Stay Ahead</h2>
-  </div>
-  <div class="features-grid">
-    <div class="feature-card">
-      <span class="feature-num">01</span>
-      <h3>Curated Content</h3>
-      <p>Hand-selected articles, deep dives, and research reports written by verified industry leaders — no noise, just signal.</p>
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <span class="section-tag">Why Vault</span>
+      <h2 class="section-title">Everything You Need<br>to Stay Ahead</h2>
     </div>
-    <div class="feature-card">
-      <span class="feature-num">02</span>
-      <h3>Live Expert Sessions</h3>
-      <p>Monthly live Q&A calls and workshops with top practitioners. Ask your burning questions in real time.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-num">01</span>
+        <h3>Curated Content</h3>
+        <p>Hand-selected articles, deep dives, and research reports written by verified industry leaders — no noise,
+          just signal.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-num">02</span>
+        <h3>Live Expert Sessions</h3>
+        <p>Monthly live Q&A calls and workshops with top practitioners. Ask your burning questions in real time.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-num">03</span>
+        <h3>Private Community</h3>
+        <p>Connect with 12,000+ ambitious professionals in our exclusive member community. Build real relationships.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-num">04</span>
+        <h3>Secure & Private</h3>
+        <p>Your data is encrypted, payments are handled by Stripe, and your access is yours alone. No compromises.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-num">05</span>
+        <h3>New Content Weekly</h3>
+        <p>Fresh premium content drops every week. Never fall behind with our structured, progressive learning tracks.
+        </p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-num">06</span>
+        <h3>Cancel Anytime</h3>
+        <p>No lock-ins, no tricks. Manage your subscription from your dashboard and cancel whenever you choose.</p>
+      </div>
     </div>
-    <div class="feature-card">
-      <span class="feature-num">03</span>
-      <h3>Private Community</h3>
-      <p>Connect with 12,000+ ambitious professionals in our exclusive member community. Build real relationships.</p>
-    </div>
-    <div class="feature-card">
-      <span class="feature-num">04</span>
-      <h3>Secure & Private</h3>
-      <p>Your data is encrypted, payments are handled by Stripe, and your access is yours alone. No compromises.</p>
-    </div>
-    <div class="feature-card">
-      <span class="feature-num">05</span>
-      <h3>New Content Weekly</h3>
-      <p>Fresh premium content drops every week. Never fall behind with our structured, progressive learning tracks.</p>
-    </div>
-    <div class="feature-card">
-      <span class="feature-num">06</span>
-      <h3>Cancel Anytime</h3>
-      <p>No lock-ins, no tricks. Manage your subscription from your dashboard and cancel whenever you choose.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div class="section-header">
-    <span class="section-tag">Membership Plans</span>
-    <h2 class="section-title">Simple, Transparent<br>Pricing</h2>
-  </div>
-  <div class="pricing-grid">
-    <div class="pricing-card">
-      <p class="plan-name">Monthly</p>
-      <div class="plan-price"><sup>$</sup>29<span>/mo</span></div>
-      <p class="plan-desc">Full access, billed monthly. Perfect for trying out Vault.</p>
-      <ul class="plan-features">
-        <li>All premium articles</li>
-        <li>Weekly content drops</li>
-        <li>Community access</li>
-        <li>Email support</li>
-      </ul>
-      <a href="register.html?plan=monthly" class="btn-plan btn-plan-outline">Get Monthly</a>
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="section-header">
+      <span class="section-tag">Membership Plans</span>
+      <h2 class="section-title">Simple, Transparent<br>Pricing</h2>
     </div>
-    <div class="pricing-card featured">
-      <div class="pricing-badge">Best Value</div>
-      <p class="plan-name">Annual</p>
-      <div class="plan-price"><sup>$</sup>199<span>/yr</span></div>
-      <p class="plan-desc">Save 43% versus monthly. The choice of serious members.</p>
-      <ul class="plan-features">
-        <li>Everything in Monthly</li>
-        <li>Live expert sessions</li>
-        <li>Early access content</li>
-        <li>Priority support</li>
-        <li>Exclusive annual report</li>
-      </ul>
-      <a href="register.html?plan=annual" class="btn-plan btn-plan-gold">Get Annual</a>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <p class="plan-name">Monthly</p>
+        <div class="plan-price"><sup>$</sup>29<span>/mo</span></div>
+        <p class="plan-desc">Full access, billed monthly. Perfect for trying out Vault.</p>
+        <ul class="plan-features">
+          <li>All premium articles</li>
+          <li>Weekly content drops</li>
+          <li>Community access</li>
+          <li>Email support</li>
+        </ul>
+        <a href="register.html?plan=monthly" class="btn-plan btn-plan-outline">Get Monthly</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Best Value</div>
+        <p class="plan-name">Annual</p>
+        <div class="plan-price"><sup>$</sup>549<span>/yr</span></div>
+        <p class="plan-desc">Save 43% versus monthly. The choice of serious members.</p>
+        <ul class="plan-features">
+          <li>Everything in Monthly</li>
+          <li>Live expert sessions</li>
+          <li>Early access content</li>
+          <li>Priority support</li>
+          <li>Exclusive annual report</li>
+        </ul>
+        <a href="register.html?plan=annual" class="btn-plan btn-plan-gold">Get Annual</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-  <div class="section-header">
-    <span class="section-tag">Member Stories</span>
-    <h2 class="section-title">Trusted by Thousands</h2>
-  </div>
-  <div class="testi-grid">
-    <div class="testi-card">
-      <span class="testi-quote">"</span>
-      <p class="testi-text">Vault completely changed how I stay informed. The quality of content is unlike anything else I've subscribed to.</p>
-      <div class="testi-author">
-        <div class="testi-avatar">SL</div>
-        <div>
-          <p class="testi-name">Sarah L.</p>
-          <p class="testi-role">Product Director</p>
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-header">
+      <span class="section-tag">Member Stories</span>
+      <h2 class="section-title">Trusted by Thousands</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <span class="testi-quote">"</span>
+        <p class="testi-text">Vault completely changed how I stay informed. The quality of content is unlike anything
+          else I've subscribed to.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SL</div>
+          <div>
+            <p class="testi-name">Sarah L.</p>
+            <p class="testi-role">Product Director</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <span class="testi-quote">"</span>
+        <p class="testi-text">The 3 Months plan pays for itself in the first week. I've used insights from Vault in
+          every major decision this year.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MR</div>
+          <div>
+            <p class="testi-name">Marcus R.</p>
+            <p class="testi-role">Founder & CEO</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <span class="testi-quote">"</span>
+        <p class="testi-text">The community alone is worth 10x the price. I've made connections here that opened doors I
+          didn't know existed.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JK</div>
+          <div>
+            <p class="testi-name">Jamie K.</p>
+            <p class="testi-role">Investor</p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="testi-card">
-      <span class="testi-quote">"</span>
-      <p class="testi-text">The annual plan pays for itself in the first week. I've used insights from Vault in every major decision this year.</p>
-      <div class="testi-author">
-        <div class="testi-avatar">MR</div>
-        <div>
-          <p class="testi-name">Marcus R.</p>
-          <p class="testi-role">Founder & CEO</p>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <span class="testi-quote">"</span>
-      <p class="testi-text">The community alone is worth 10x the price. I've made connections here that opened doors I didn't know existed.</p>
-      <div class="testi-author">
-        <div class="testi-avatar">JK</div>
-        <div>
-          <p class="testi-name">Jamie K.</p>
-          <p class="testi-role">Investor</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- CTA -->
-<section class="cta-section">
-  <h2>Ready to Join<br><em style="color:var(--gold);font-style:italic">the Vault?</em></h2>
-  <p>Join thousands of members already inside. Cancel anytime.</p>
-  <a href="register.html" class="btn-primary">Create Your Account →</a>
-</section>
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to Join<br><em style="color:var(--gold);font-style:italic">the Vault?</em></h2>
+    <p>Join thousands of members already inside. Cancel anytime.</p>
+    <a href="register.html" class="btn-primary">Create Your Account →</a>
+  </section>
 
-<footer>
-  <div class="footer-logo">VAULT</div>
-  <div class="footer-links">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="#">Support</a>
-  </div>
-  <p>© 2026 Vault. All rights reserved.</p>
-</footer>
+  <footer>
+    <div class="footer-logo">VAULT</div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Support</a>
+    </div>
+    <p>© 2026 Vault. All rights reserved.</p>
+  </footer>
 
 </body>
+
 </html>
